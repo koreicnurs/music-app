@@ -1,6 +1,6 @@
 const express = require('express');
 
-const Album = require("../models/Album");
+const Albums = require("../models/Album");
 const path = require("path");
 const multer = require('multer');
 
@@ -21,10 +21,10 @@ const upload = multer({storage});
 router.get('/', async (req, res) => {
     try {
         if(req.query.artist) {
-            const album = await Album.find({artist: req.query.artist})
+            const album = await Albums.find({artist: req.query.artist});
             res.send(album);
         } else {
-            const album = await Album.find();
+            const album = await Albums.find();
             res.send(album);
         }
     } catch {
@@ -34,10 +34,10 @@ router.get('/', async (req, res) => {
 
 router.get('/:id', async (req, res) => {
     try {
-        const album = await Album.findById(req.params.id);
+        const album = await Albums.findById(req.params.id);
 
         if (!album) {
-            res.status(404).send({message: 'Album not found!'});
+            res.status(404).send({message: 'Albums not found!'});
         }
 
         res.send(album);
@@ -65,7 +65,7 @@ router.post('/', upload.single('image'), async (req, res) => {
     }
 
     try {
-        const album = new Album(albumData);
+        const album = new Albums(albumData);
         await album.save();
 
         res.send(album);

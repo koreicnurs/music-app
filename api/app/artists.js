@@ -1,6 +1,6 @@
 const express = require('express');
 
-const Artist = require("../models/Artist");
+const Artists = require("../models/Artist");
 const path = require("path");
 const multer = require('multer');
 
@@ -20,7 +20,7 @@ const upload = multer({storage});
 
 router.get('/', async (req, res) => {
     try {
-        const artists = await Artist.find();
+        const artists = await Artists.find();
         res.send(artists);
     } catch {
         res.sendStatus(500);
@@ -42,7 +42,7 @@ router.post('/', upload.single('image'), async (req, res) => {
         artist.image = req.file.filename;
     }
 
-    const newArtist = new Artist(artist);
+    const newArtist = new Artists(artist);
     await newArtist.save();
 
     res.send(artist);
