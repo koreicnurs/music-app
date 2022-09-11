@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const artist = require('./app/artist');
+const album = require('./app/album');
 const config = require('./config')
 
 const app = express();
@@ -12,6 +13,7 @@ app.use(express.json());
 app.use(cors());
 
 app.use('/artists', artist);
+app.use('/albums', album);
 
 const run = async () => {
     await mongoose.connect(config.mongo.db, config.mongo.options) ;
