@@ -54,4 +54,21 @@ router.post('/sessions', async (req, res) => {
     res.send({message: 'User and password correct!', user})
 });
 
+router.get('/secret', async (req, res) => {
+    const token = req.get('Authorization');
+
+    if(!token) {
+        return res.status(401).send({ error: 'No token present' });
+    }
+
+    const user = await User.findOne({ token });
+
+    if(!user) {
+        return res.status(401).send({ error: 'Wrong TOKEN' });
+    }
+
+    res.send({ message: 'Secret message', username: user.username })
+});
+
+
 module.exports = router;
