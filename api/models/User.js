@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const bcrypt = require('bcrypt');
+const {nanoid} = require('nanoid');
 
 const Schema = mongoose.Schema;
 const SALT_WORK_FACTOR = 10;
@@ -10,6 +11,10 @@ const UserSchema = new Schema({
         required: true,
     },
     password: {
+        type: String,
+        required: true,
+    },
+    token: {
         type: String,
         required: true,
     }
@@ -29,6 +34,14 @@ UserSchema.set('toJSON', {
         return ret;
     }
 });
+
+UserSchema.methods.checkPassword = function (password) {
+    return bcrypt.compare(password, this.password);
+};
+
+UserSchema.methods.generateToken = function () {
+    this.token = nanoid();
+};
 
 const User = mongoose.model('User', UserSchema);
 

@@ -27,6 +27,7 @@ router.post('/', async (req, res) => {
 
     try {
         const user = new User(userData);
+        user.generateToken();
         await user.save();
 
         res.send(user);
@@ -42,12 +43,14 @@ router.post('/sessions', async (req, res) => {
         return res.status(401).send({error: 'User not found'});
     }
 
-    const isMatch = await bcrypt.compare(req.body.password, user.password);
+    const isMatch = await user.checkPassword(req.body.password);
 
     if (!isMatch) {
         res.status(401).send({error: 'Password is wrong'});
     }
 
+    user.generateToken();
+    await user.save();
     res.send({message: 'User and password correct!', user})
 });
 
