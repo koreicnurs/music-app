@@ -1,5 +1,8 @@
 const mongoose = require("mongoose");
+const bcrypt = require('bcrypt');
+
 const Schema = mongoose.Schema;
+const SALT_WORK_FACTOR = 10;
 
 const UserSchema = new Schema({
     username: {
@@ -12,7 +15,14 @@ const UserSchema = new Schema({
     }
 });
 
-// UserSchema.plugin(idValidator, {message : 'Bad ID value for {PATH}'});
+UserSchema.pre('save',  async function (next) {
+    if(!this.isModified('password')) return next();
+
+    const salt = await bcrypt.genSalt(SALT_WORK_FACTOR);
+    const hash = await bcrypt.hash(this.password, salt);
+    this.password = hash;
+});
+
 const User = mongoose.model('User', UserSchema);
 
 module.exports = User;
