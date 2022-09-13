@@ -5,6 +5,7 @@ const config = require('./config');
 const artist = require('./app/artists');
 const album = require('./app/albums');
 const track = require('./app/tracks');
+const user = require('./app/users');
 
 const app = express();
 const port = 8000;
@@ -16,6 +17,7 @@ app.use(cors());
 app.use('/artists', artist);
 app.use('/albums', album);
 app.use('/tracks', track);
+app.use('/users', user);
 
 const run = async () => {
     await mongoose.connect(config.mongo.db, config.mongo.options) ;
