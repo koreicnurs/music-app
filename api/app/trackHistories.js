@@ -16,7 +16,7 @@ router.post('/', async (req, res) => {
     if(!user) {
         return res.status(401).send({ error: 'Wrong TOKEN' });
     }
-    res.send({ userId: user._id, trackId: req.body.trackId });
+    res.send({ userId: user._id, trackId: req.body.trackId, datetime: new Date() });
 });
 
 
