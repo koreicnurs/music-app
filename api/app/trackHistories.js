@@ -11,7 +11,6 @@ router.post('/', async (req, res) => {
     }
 
     const user = await User.findOne({ token });
-    console.log(user);
 
     if(!user) {
         return res.status(401).send({ error: 'Wrong TOKEN' });
