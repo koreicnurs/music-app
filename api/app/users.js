@@ -1,17 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const bcrypt = require('bcrypt');
 
 const User = require("../models/User");
-
-
-router.get('/', async (req, res) => {
-    try {
-
-    } catch {
-        res.sendStatus(500);
-    }
-});
+const Track = require("../models/Track");
 
 router.post('/', async (req, res) => {
     const {username, password} = req.body;
@@ -57,17 +48,26 @@ router.post('/sessions', async (req, res) => {
 router.get('/secret', async (req, res) => {
     const token = req.get('Authorization');
 
-    if(!token) {
-        return res.status(401).send({ error: 'No token present' });
+    if (!token) {
+        return res.status(401).send({error: 'No token present'});
     }
 
-    const user = await User.findOne({ token });
+    const user = await User.findOne({token});
 
-    if(!user) {
-        return res.status(401).send({ error: 'Wrong TOKEN' });
+    if (!user) {
+        return res.status(401).send({error: 'Wrong TOKEN'});
     }
 
-    res.send({ message: 'Secret message', username: user.username })
+    res.send({message: 'Secret message', username: user.username})
+});
+
+router.get('/', async (req, res) => {
+    try {
+        const user = await User.find();
+        res.send(user);
+    } catch {
+        res.sendStatus(500);
+    }
 });
 
 
