@@ -20,11 +20,13 @@ const upload = multer({storage});
 
 router.get('/', async (req, res) => {
     try {
-        if(req.query.artist) {
-            const album = await Albums.find({artist: req.query.artist});
+        if (req.query.artist) {
+            const album = await Albums.find({artist: req.query.artist})
+                .populate('artist', ['name', 'description']);
             res.send(album);
         } else {
-            const album = await Albums.find();
+            const album = await Albums.find()
+                .populate('artist', ['name', 'description']);
             res.send(album);
         }
     } catch {
@@ -34,7 +36,8 @@ router.get('/', async (req, res) => {
 
 router.get('/:id', async (req, res) => {
     try {
-        const album = await Albums.findById(req.params.id);
+        const album = await Albums.findById(req.params.id)
+            .populate('artist', ['name', 'description']);
 
         if (!album) {
             res.status(404).send({message: 'Albums not found!'});
