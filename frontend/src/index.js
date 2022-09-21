@@ -6,10 +6,12 @@ import thunk from "redux-thunk";
 import {Provider} from "react-redux";
 import App from './App';
 import './index.css';
+import artistsReducer from "./store/reducers/artistsReducer";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const rootReducer = combineReducers({
+    artistsCombine: artistsReducer,
 
 });
 
