@@ -7,7 +7,8 @@ const Track = require("../models/Track");
 router.get('/', async (req, res) => {
     try {
         if (req.query.album) {
-            const track = await Track.find({album: req.query.album});
+            const track = await Track.find({album: req.query.album})
+                .sort('number');
             res.send(track);
         } else {
             const track = await Track.find();
