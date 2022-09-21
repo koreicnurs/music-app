@@ -19,9 +19,9 @@ router.get('/', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-    const {title, album, duration} = req.body;
+    const {title, album, duration, number} = req.body;
 
-    if (!title || !album || !duration) {
+    if (!title || !album || !duration || !number) {
         return res.status(400).send({error: 'Data not valid'});
     }
 
@@ -29,6 +29,7 @@ router.post('/', async (req, res) => {
         title,
         album,
         duration,
+        number,
     };
 
     try {

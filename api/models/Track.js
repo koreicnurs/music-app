@@ -15,7 +15,11 @@ const TrackSchema = new Schema({
     duration: {
         type: String,
         required: true,
-    }
+    },
+    number: {
+        type: Number,
+        required: true,
+    },
 });
 
 TrackSchema.plugin(idValidator, {message : 'Bad ID value for {PATH}'});
