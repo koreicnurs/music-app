@@ -15,7 +15,7 @@ const Albums = () => {
 
     return loading ? <Spinner/> :  albums && (
         <>
-            <div className='artists'>
+            <div className='albums'>
                 {albums.map(i => (
                     <div>
                         <p>{i.title}</p>
