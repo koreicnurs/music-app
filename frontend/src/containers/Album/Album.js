@@ -1,7 +1,7 @@
 import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import Spinner from "../../components/UI/Spinner/Spinner";
-import {Link} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 import {getTracksAction} from "../../store/actions/tracksActions";
 import {Button, Card, CardActionArea, CardActions, CardContent, CardMedia, Typography} from "@mui/material";
 import './Album.css';
@@ -10,12 +10,14 @@ const Album = () => {
     const dispatch = useDispatch();
     const loading = useSelector(state => state.albumsCombine.loading);
     const album = useSelector(state => state.albumsCombine.album);
+    const history = useHistory();
 
     const getTracks = (id) => {
         dispatch(getTracksAction(id));
     };
 
     return loading ? <Spinner/> : album && (
+        <>
             <Card sx={{ maxWidth: 345 }} className='album-card'>
                 <CardActionArea>
                     <CardMedia
@@ -38,6 +40,9 @@ const Album = () => {
                             onClick={() => getTracks(album._id)}>Tracks</Button>
                 </CardActions>
             </Card>
+
+            <Button onClick={history.goBack} className='back-btn'>Back</Button>
+        </>
     );
 };
 

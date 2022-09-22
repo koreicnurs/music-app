@@ -1,12 +1,14 @@
 import React from 'react';
 import {useSelector} from "react-redux";
 import Spinner from "../../components/UI/Spinner/Spinner";
-import {Box, Card, CardContent, CardMedia, Typography} from "@mui/material";
+import {Box, Button, Card, CardContent, Typography} from "@mui/material";
+import {useHistory} from "react-router-dom";
 import './Tracks.css';
 
 const Tracks = () => {
     const loading = useSelector(state => state.tracksCombine.loading);
     const tracks = useSelector(state => state.tracksCombine.tracks);
+    const history = useHistory();
 
     return loading ? <Spinner/> : tracks && (
         <>
@@ -32,6 +34,7 @@ const Tracks = () => {
                     </Card>
                 ))}
             </div>
+            <Button onClick={history.goBack} className='back-btn'>Back</Button>
         </>
     );
 };

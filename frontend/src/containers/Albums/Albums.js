@@ -3,13 +3,14 @@ import {useDispatch, useSelector} from "react-redux";
 import Spinner from "../../components/UI/Spinner/Spinner";
 import {getAlbumAction} from "../../store/actions/albumsActions";
 import {Box, Button, Card, CardContent, CardMedia, Typography} from "@mui/material";
-import {Link} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 import './Albums.css';
 
 const Albums = () => {
     const dispatch = useDispatch();
     const loading = useSelector(state => state.albumsCombine.loading);
     const albums = useSelector(state => state.albumsCombine.albums);
+    const history = useHistory();
 
     const getAlbum = (id) => {
         dispatch(getAlbumAction(id));
@@ -47,6 +48,7 @@ const Albums = () => {
                         </Card>
                 ))}
             </div>
+            <Button onClick={history.goBack} className='back-btn'>Back</Button>
         </>
     );
 };
