@@ -13,7 +13,6 @@ const App = () => {
                 <Route path="/albums" exact component={Albums}/>
                 <Route path="/tracks" exact component={Tracks}/>
                 <Route path="/albums/:id" exact component={Album}/>
-                {/*<Route path="/tracks/:id" exact component={Album}/>*/}
                 <Route render={() => <h1>Not Found</h1>}/>
             </Switch>
         </Layout>

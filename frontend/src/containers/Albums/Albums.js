@@ -1,8 +1,9 @@
 import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import Spinner from "../../components/UI/Spinner/Spinner";
-import {NavLink} from "react-router-dom";
 import {getAlbumAction} from "../../store/actions/albumsActions";
+import {Button} from "@mui/material";
+import {Link} from "react-router-dom";
 
 const Albums = () => {
     const dispatch = useDispatch();
@@ -19,7 +20,7 @@ const Albums = () => {
                 {albums.map(i => (
                     <div>
                         <p>{i.title}</p>
-                        <NavLink to={`/albums/${i._id}`} onClick={() => getAlbum(i._id)}>Info</NavLink>
+                        <Button component={Link} to={`/albums/${i._id}`} onClick={() => getAlbum(i._id)}>Info</Button>
                     </div>
                 ))}
             </div>

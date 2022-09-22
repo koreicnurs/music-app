@@ -1,9 +1,9 @@
 import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import Spinner from "../../components/UI/Spinner/Spinner";
-import {NavLink} from "react-router-dom";
-import {getAlbumAction} from "../../store/actions/albumsActions";
+import {Link} from "react-router-dom";
 import {getTracksAction} from "../../store/actions/tracksActions";
+import {Button} from "@mui/material";
 
 const Album = () => {
     const dispatch = useDispatch();
@@ -19,7 +19,7 @@ const Album = () => {
             <div className='album'>
                 <p>{album.title}</p>
                 <p>{album.date}</p>
-                <NavLink to={`/tracks?album=${album._id}`} onClick={() => getTracks(album._id)}>Tracks</NavLink>
+                <Button component={Link} to={`/tracks?album=${album._id}`} onClick={() => getTracks(album._id)}>Tracks</Button>
             </div>
         </>
     );
