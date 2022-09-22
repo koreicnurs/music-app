@@ -8,10 +8,16 @@ router.get('/', async (req, res) => {
     try {
         if (req.query.album) {
             const track = await Track.find({album: req.query.album})
-                .sort('number');
+                .sort('number')
+                .populate('album', ['title']);
+
             res.send(track);
+
         } else {
-            const track = await Track.find();
+            const track = await Track.find()
+                .sort('number')
+                .populate('album', ['title']);
+
             res.send(track);
         }
     } catch {

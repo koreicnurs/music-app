@@ -4,7 +4,8 @@ import Spinner from "../../components/UI/Spinner/Spinner";
 import {getArtists} from "../../store/actions/artistsActions";
 import {getAlbumsAction} from "../../store/actions/albumsActions";
 import {Link} from "react-router-dom";
-import {Button} from "@mui/material";
+import {Box, Button, Card, CardContent, CardMedia, Typography} from "@mui/material";
+import "./Artists.css";
 
 const Artists = () => {
     const dispatch = useDispatch();
@@ -23,11 +24,30 @@ const Artists = () => {
         <>
             <div className='artists'>
                 {artists.map(i => (
-                    <div>
-                        <p>{i.name}</p>
-                        <Button component={Link} to={`/albums?artist=${i._id}`} onClick={() => getAlbums(i._id)}>btn</Button>
-                    </div>
+
+                    <Card sx={{display: 'flex'}} className='artist'>
+                        <Box sx={{display: 'flex', flexDirection: 'column'}}>
+                            <CardContent sx={{flex: '1 0 auto'}}>
+                                <Typography component="div" variant="h5">
+                                    {i.name}
+                                </Typography>
+                                <Typography variant="subtitle1" color="text.secondary" component="div">
+                                    {i.description}
+                                </Typography>
+                            </CardContent>
+                        </Box>
+                        <CardMedia
+                            component="img"
+                            sx={{width: 151}}
+                            image={i.image}
+                            alt={i.name}
+                        />
+                        <Button component={Link} to={`/albums?artist=${i._id}`}
+                                onClick={() => getAlbums(i._id)}>See Albums</Button>
+                    </Card>
+
                 ))}
+
             </div>
         </>
     );

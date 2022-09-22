@@ -1,0 +1,16 @@
+.album-title {
+    text-align: center;
+    text-transform: uppercase;
+    color: #1f5681;
+}
+
+.tracks {
+    display: flex;
+    margin: 20px;
+    flex-wrap: wrap;
+}
+
+.track {
+    margin: 20px;
+    color: #1f5681;
+}

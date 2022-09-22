@@ -1,0 +1,15 @@
+body {
+    background: azure;
+}
+
+.artists {
+    display: flex;
+    margin: 20px;
+    flex-wrap: wrap;
+}
+
+.artist {
+    margin: 20px;
+    background: #e2f3ff;
+    color: #521751;
+}

@@ -27,7 +27,8 @@ router.get('/', async (req, res) => {
             res.send(album);
         } else {
             const album = await Albums.find()
-                .populate('artist', ['name', 'description']);
+                .populate('artist', ['name', 'description'])
+                .sort('date');
             res.send(album);
         }
     } catch {

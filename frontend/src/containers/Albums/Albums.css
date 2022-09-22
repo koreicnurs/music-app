@@ -1,0 +1,17 @@
+.albums {
+    display: flex;
+    margin: 20px;
+    flex-wrap: wrap;
+}
+
+.album {
+    color: #6f76c2!important;
+    background: whitesmoke!important;
+    margin: 20px;
+}
+
+.artist-name {
+    color: #a57bcc;
+    margin-bottom: 30px;
+    text-align: center;
+}
