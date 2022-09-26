@@ -9,6 +9,14 @@ const UserSchema = new Schema({
     username: {
         type: String,
         required: true,
+        validate: {
+            validator: async value => {
+                const user = await User.findOne({username: value});
+
+                if (user) return false;
+            },
+            message: 'This user is already registered',
+        },
     },
     password: {
         type: String,
@@ -17,7 +25,7 @@ const UserSchema = new Schema({
     token: {
         type: String,
         required: true,
-    }
+    },
 });
 
 UserSchema.pre('save', async function (next) {
