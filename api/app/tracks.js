@@ -2,9 +2,10 @@ const express = require('express');
 const router = express.Router();
 
 const Track = require("../models/Track");
+const auth = require("../middleware/auth");
 
 
-router.get('/', async (req, res) => {
+router.get('/', auth, async (req, res) => {
     try {
         if (req.query.album) {
             const track = await Track.find({album: req.query.album})

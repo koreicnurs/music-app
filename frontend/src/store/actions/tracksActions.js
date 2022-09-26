@@ -9,11 +9,15 @@ const fetchTracksSuccess = tracks => ({type: FETCH_TRACKS_SUCCESS, payload: trac
 const fetchTracksFailure = error => ({type: FETCH_TRACKS_FAILURE, payload: error});
 
 export const getTracksAction = (id) => {
-    return async dispatch => {
+    return async (dispatch, getState) => {
         try {
+            const headers = {
+                'Authorization': getState().users.user && getState().users.user.token,
+            };
+
             dispatch(fetchTracksRequest());
 
-            const response = await axiosApi(`/tracks?album=${id}`);
+            const response = await axiosApi(`/tracks?album=${id}`, {headers});
             dispatch(fetchTracksSuccess(response.data));
         } catch (e) {
             dispatch(fetchTracksFailure(e.message));
