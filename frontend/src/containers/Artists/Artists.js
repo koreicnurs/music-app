@@ -13,7 +13,6 @@ const Artists = () => {
     const artists = useSelector(state => state.artistsCombine.artists);
     const user = useSelector(state => state.users.user);
 
-
     useEffect(() => {
         dispatch(getArtists());
     }, [dispatch]);
