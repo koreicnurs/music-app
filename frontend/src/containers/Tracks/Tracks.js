@@ -1,14 +1,20 @@
 import React from 'react';
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import Spinner from "../../components/UI/Spinner/Spinner";
 import {Box, Button, Card, CardContent, Typography} from "@mui/material";
 import {useHistory} from "react-router-dom";
+import {saveTrack} from "../../store/actions/trackHistoryActions";
 import './Tracks.css';
 
 const Tracks = () => {
+    const dispatch = useDispatch();
     const loading = useSelector(state => state.tracksCombine.loading);
     const tracks = useSelector(state => state.tracksCombine.tracks);
     const history = useHistory();
+
+    const sendTrack = (id) => {
+        dispatch(saveTrack(id));
+    };
 
     return loading ? <Spinner/> : tracks && (
         <>
@@ -17,7 +23,7 @@ const Tracks = () => {
             </Typography>
             <div className='tracks'>
                 {tracks.map(i => (
-                    <Card sx={{display: 'flex'}} className='track'>
+                    <Card sx={{display: 'flex'}} className='track' onClick={() => sendTrack(i._id)}>
                         <Box sx={{display: 'flex', flexDirection: 'column'}}>
                             <CardContent sx={{flex: '1 0 auto'}}>
                                 <Typography component="div" variant="h6">
