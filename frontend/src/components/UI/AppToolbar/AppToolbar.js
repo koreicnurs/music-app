@@ -36,7 +36,7 @@ const AppToolbar = () => {
            <Grid item>
              <Typography variant="h6">
                <Link to="/" className={classes.mainLink}>
-                 Computer parts shop
+                 Music
                </Link>
              </Typography>
            </Grid>

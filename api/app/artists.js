@@ -6,6 +6,7 @@ const multer = require('multer');
 
 const router = express.Router();
 const {nanoid} = require('nanoid');
+const auth = require("../middleware/auth");
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -18,7 +19,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({storage});
 
-router.get('/', async (req, res) => {
+router.get('/', auth, async (req, res) => {
     try {
         const artists = await Artists.find();
         res.send(artists);

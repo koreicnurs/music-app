@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import {Link as RouterLink} from 'react-router-dom';
 import {makeStyles} from "tss-react/mui";
-import {Avatar, Container, Grid, Link, Typography} from "@mui/material";
-import {LockOutlined} from "@mui/icons-material";
+import {Alert, Avatar, Container, Grid, Link, Typography} from "@mui/material";
+import {LockOpenOutlined} from "@mui/icons-material";
 import {useDispatch, useSelector} from "react-redux";
-import {clearRegisterErrors, registerUser} from "../../store/actions/usersActions";
+import {clearRegisterErrors, loginUser} from "../../store/actions/usersActions";
 import FormElement from "../../components/UI/Form/FormElement/FormElement";
 import ButtonWithProgress from "../../components/UI/ButtonWithProgress/ButtonWithProgress";
 
@@ -24,14 +24,19 @@ const useStyles = makeStyles()(theme => ({
   },
   submit: {
     margin: `${theme.spacing(2, 0)} !important`,
-  }
+  },
+  alert: {
+    margin: theme.spacing(3, 0),
+    width: '100%',
+  },
 }));
 
-const Register = () => {
+const Login = () => {
   const { classes } = useStyles();
+
   const dispatch = useDispatch();
-  const error = useSelector(state => state.users.registerError);
-  const loading = useSelector(state => state.users.registerLoading);
+  const error = useSelector(state => state.users.loginError);
+  const loading = useSelector(state => state.users.loginLoading);
 
   const [user, setUser] = useState({
     username: '',
@@ -46,33 +51,30 @@ const Register = () => {
 
   const inputChangeHandler = e => {
     const {name, value} = e.target;
-
     setUser(prev => ({...prev, [name]: value}));
   };
 
   const submitFormHandler = e => {
     e.preventDefault();
 
-    dispatch(registerUser({...user}));
-  };
-
-  const getFieldError = fieldName => {
-    try {
-      return error.error[fieldName].message;
-    } catch {
-      return undefined;
-    }
+    dispatch(loginUser({...user}));
   };
 
   return (
     <Container maxWidth="xs">
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
-          <LockOutlined/>
+          <LockOpenOutlined/>
         </Avatar>
         <Typography component="h1" variant="h6">
-          Sign up
+          Sign in
         </Typography>
+
+        {error && (
+          <Alert severity="error" className={classes.alert}>
+            Error! {error.message}
+          </Alert>
+        )}
 
         <Grid
           component="form"
@@ -81,20 +83,20 @@ const Register = () => {
           spacing={2}
         >
           <FormElement
+            required={true}
             label="Username"
             name="username"
             value={user.username}
             onChange={inputChangeHandler}
-            error={getFieldError('username')}
           />
 
           <FormElement
             type="password"
+            required={true}
             label="Password"
             name="password"
             value={user.password}
             onChange={inputChangeHandler}
-            error={getFieldError('password')}
           />
 
           <Grid item xs={12}>
@@ -107,15 +109,15 @@ const Register = () => {
               color="primary"
               className={classes.submit}
             >
-              Sign Up
+              Sign In
             </ButtonWithProgress>
           </Grid>
         </Grid>
 
         <Grid container justifyContent="flex-end">
           <Grid item>
-            <Link component={RouterLink} to="/login">
-              Already have an account? Sign in
+            <Link component={RouterLink} to="/register">
+              Or sign up
             </Link>
           </Grid>
         </Grid>
@@ -124,4 +126,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default Login;

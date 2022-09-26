@@ -5,6 +5,7 @@ import Albums from "./containers/Albums/Albums";
 import Album from "./containers/Album/Album";
 import Tracks from "./containers/Tracks/Tracks";
 import Register from "./containers/Register/Register";
+import Login from "./containers/Login/Login";
 
 const App = () => {
     return (
@@ -15,6 +16,7 @@ const App = () => {
                 <Route path="/tracks" exact component={Tracks}/>
                 <Route path="/albums/:id" exact component={Album}/>
                 <Route path="/register" component={Register}/>
+                <Route path="/login" component={Login}/>
                 <Route render={() => <h1>Not Found</h1>}/>
             </Switch>
         </Layout>

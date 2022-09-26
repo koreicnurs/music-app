@@ -1,15 +1,20 @@
 import React from 'react';
-import Toolbar from '../../Navigation/Toolbar/Toolbar';
-import './Layout.css';
 import AppToolbar from "../AppToolbar/AppToolbar";
+import {Container, CssBaseline} from "@mui/material";
+import './Layout.css';
 
-const Layout = (props) => {
-  return (
-    <>
-        <AppToolbar/>
-        <main className="Content-Layout">{props.children}</main>
-    </>
-  );
+const Layout = ({children}) => {
+    return (
+        <>
+            <CssBaseline/>
+            <AppToolbar/>
+            <main>
+                <Container maxWidth="xl">
+                    {children}
+                </Container>
+            </main>
+        </>
+    );
 };
 
 export default Layout;

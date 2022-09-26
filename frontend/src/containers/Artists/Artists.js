@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import Spinner from "../../components/UI/Spinner/Spinner";
 import {getArtists} from "../../store/actions/artistsActions";
 import {getAlbumsAction} from "../../store/actions/albumsActions";
-import {Link} from "react-router-dom";
+import {Link, Redirect} from "react-router-dom";
 import {Box, Button, Card, CardContent, CardMedia, Typography} from "@mui/material";
 import "./Artists.css";
 
@@ -11,6 +11,8 @@ const Artists = () => {
     const dispatch = useDispatch();
     const loading = useSelector(state => state.artistsCombine.loading);
     const artists = useSelector(state => state.artistsCombine.artists);
+    const user = useSelector(state => state.users.user);
+
 
     useEffect(() => {
         dispatch(getArtists());
@@ -19,6 +21,10 @@ const Artists = () => {
     const getAlbums = (id) => {
         dispatch(getAlbumsAction(id));
     };
+
+    if (!user) {
+        return <Redirect to="/login"/>
+    }
 
     return loading ? <Spinner/> : (
         <>
