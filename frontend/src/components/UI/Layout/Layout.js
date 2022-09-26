@@ -1,12 +1,13 @@
 import React from 'react';
 import Toolbar from '../../Navigation/Toolbar/Toolbar';
 import './Layout.css';
+import AppToolbar from "../AppToolbar/AppToolbar";
 
 const Layout = (props) => {
   return (
     <>
-      <Toolbar/>
-      <main className="Content-Layout">{props.children}</main>
+        <AppToolbar/>
+        <main className="Content-Layout">{props.children}</main>
     </>
   );
 };

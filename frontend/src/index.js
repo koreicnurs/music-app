@@ -8,7 +8,10 @@ import App from './App';
 import artistsReducer from "./store/reducers/artistsReducer";
 import albumsReducer from "./store/reducers/albumsRudecer";
 import tracksReducer from "./store/reducers/tracksReducer";
+import usersReducer from "./store/reducers/usersReducer";
 import './index.css';
+import {ThemeProvider} from "@mui/material";
+import theme from "./theme";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -16,6 +19,7 @@ const rootReducer = combineReducers({
     artistsCombine: artistsReducer,
     albumsCombine: albumsReducer,
     tracksCombine: tracksReducer,
+    users: usersReducer,
 });
 
 const store = createStore(
@@ -25,9 +29,11 @@ const store = createStore(
 
 const app = (
     <Provider store={store}>
-        <BrowserRouter>
-            <App/>
-        </BrowserRouter>
+        <ThemeProvider theme={theme}>
+            <BrowserRouter>
+                <App/>
+            </BrowserRouter>
+        </ThemeProvider>
     </Provider>
 );
 
