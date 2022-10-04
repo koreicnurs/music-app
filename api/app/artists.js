@@ -40,7 +40,7 @@ router.post('/', upload.single('image'), async (req, res) => {
     };
 
     if (req.file) {
-        artist.image = req.file.filename;
+        artist.image = "uploads/" + req.file.filename;
     }
 
     const newArtist = new Artists(artist);
