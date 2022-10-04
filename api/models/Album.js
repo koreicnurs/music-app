@@ -16,7 +16,8 @@ const AlbumSchema = new Schema({
         type: String,
         required: true
     },
-    image: String
+    image: String,
+    public: false
 });
 
 AlbumSchema.plugin(idValidator, {message : 'Bad ID value for {PATH}'});

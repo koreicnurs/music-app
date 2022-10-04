@@ -7,7 +7,8 @@ const ArtistSchema = new Schema ({
         require: true,
     },
     image: String,
-    description: String
+    description: String,
+    public: false
 });
 
 const Artist = mongoose.model('Artist', ArtistSchema);
