@@ -7,12 +7,14 @@ import Tracks from "./containers/Tracks/Tracks";
 import Register from "./containers/Register/Register";
 import Login from "./containers/Login/Login";
 import TrackHistory from "./containers/TrackHistory/TrackHistory";
+import NewArtist from "./containers/NewArtist/NewArtist";
 
 const App = () => {
     return (
         <Layout>
             <Switch>
                 <Route path="/" exact component={Artists}/>
+                <Route path="/artists/new" exact component={NewArtist}/>
                 <Route path="/albums" exact component={Albums}/>
                 <Route path="/tracks" exact component={Tracks}/>
                 <Route path="/albums/:id" exact component={Album}/>

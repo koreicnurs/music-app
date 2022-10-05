@@ -3,6 +3,7 @@ const express = require('express');
 const Artists = require("../models/Artist");
 const path = require("path");
 const multer = require('multer');
+const config = require('../config');
 
 const router = express.Router();
 const {nanoid} = require('nanoid');
@@ -29,18 +30,22 @@ router.get('/', auth, async (req, res) => {
 });
 
 router.post('/', upload.single('image'), async (req, res) => {
-    if (!req.body.name) {
+    const {name, description, image} = req.body;
+
+    if (!name) {
         return res.status(400).send({error: 'Something are missing'});
     }
 
     const artist = {
-        name: req.body.name,
-        description: req.body.description,
-        image: null
+        name,
+        description,
+        image,
     };
 
     if (req.file) {
         artist.image = "uploads/" + req.file.filename;
+    } else if (!image)  {
+        return res.status(400).send({error: 'Data not valid'});
     }
 
     const newArtist = new Artists(artist);

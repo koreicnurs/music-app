@@ -6,8 +6,8 @@ const User = require("../models/User");
 router.post('/', async (req, res) => {
 
     try {
-        const {username, password} = req.body;
-        const userData = {username, password};
+        const {username, password, displayName, phone} = req.body;
+        const userData = {username, password, displayName, phone};
         const user = new User(userData);
 
         user.generateToken();
@@ -15,7 +15,7 @@ router.post('/', async (req, res) => {
 
         res.send(user);
     } catch (e) {
-        res.status(400).send({error: e.errors});
+        res.status(400).send(e);
     }
 });
 

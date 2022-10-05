@@ -60,6 +60,14 @@ const Login = () => {
         dispatch(loginUser({...user}));
     };
 
+    const getFieldError = fieldName => {
+        try {
+            return error.errors[fieldName].message;
+        } catch {
+            return undefined;
+        }
+    };
+
     return (
         <Container maxWidth="xs">
             <div className={classes.paper}>
@@ -83,11 +91,13 @@ const Login = () => {
                     spacing={2}
                 >
                     <FormElement
-                        required={true}
+                        // required={true}
                         label="Username"
                         name="username"
                         value={user.username}
                         onChange={inputChangeHandler}
+                        error={getFieldError('username')}
+                        helperText={error}
                     />
 
                     <FormElement
@@ -97,6 +107,7 @@ const Login = () => {
                         name="password"
                         value={user.password}
                         onChange={inputChangeHandler}
+                        error={getFieldError('password')}
                     />
 
                     <Grid item xs={12}>

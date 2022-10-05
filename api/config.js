@@ -4,8 +4,9 @@ const rootPath = __dirname;
 
 module.exports = {
     rootPath,
+    uploadPath: path.join(rootPath, 'public/uploads'),
     mongo: {
-        db: 'mongodb://localhost/links',
-        options: {useNewUrlParser: true}
+        db: 'mongodb://localhost/shop',
+        options: {useNewUrlParser: true},
     }
 };
