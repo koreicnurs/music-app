@@ -21,7 +21,7 @@ const NewAlbum = ({history}) => {
                 marginBottom="20px"
                 variant="h4"
             >
-                New Artist
+                New Album
             </Typography>
             <AlbumForm
                 artist={artists}

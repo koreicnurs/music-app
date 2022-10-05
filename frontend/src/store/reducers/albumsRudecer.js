@@ -5,6 +5,9 @@ import {
     FETCH_ALBUMS_FAILURE,
     FETCH_ALBUMS_REQUEST,
     FETCH_ALBUMS_SUCCESS,
+    FETCH_ALL_ALBUMS_FAILURE,
+    FETCH_ALL_ALBUMS_REQUEST,
+    FETCH_ALL_ALBUMS_SUCCESS,
     GET_ALBUM_FAILURE,
     GET_ALBUM_REQUEST,
     GET_ALBUM_SUCCESS
@@ -14,6 +17,7 @@ import {
 const initialState = {
     albums: [],
     album: null,
+    allAlbums: [],
     loading: false,
     error: null,
     createAlbumError: null,
@@ -28,6 +32,13 @@ const albumsReducer = (state = initialState, actions) => {
         case FETCH_ALBUMS_SUCCESS:
             return {...state, loading: false, albums: actions.payload};
         case FETCH_ALBUMS_FAILURE:
+            return {...state, loading: false, error: actions.payload};
+
+        case FETCH_ALL_ALBUMS_REQUEST:
+            return {...state, loading: true};
+        case FETCH_ALL_ALBUMS_SUCCESS:
+            return {...state, loading: false, allAlbums: actions.payload};
+        case FETCH_ALL_ALBUMS_FAILURE:
             return {...state, loading: false, error: actions.payload};
 
         case GET_ALBUM_REQUEST:

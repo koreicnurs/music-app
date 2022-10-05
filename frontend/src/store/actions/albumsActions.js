@@ -1,10 +1,13 @@
 import axiosApi from "../../axiosApi";
 import {historyPush} from "./historyActions";
-import {CREATE_ARTIST_FAILURE, CREATE_ARTIST_REQUEST, CREATE_ARTIST_SUCCESS} from "./artistsActions";
 
 export const FETCH_ALBUMS_REQUEST = 'FETCH_ALBUMS_REQUEST';
 export const FETCH_ALBUMS_SUCCESS = 'FETCH_ALBUMS_SUCCESS';
 export const FETCH_ALBUMS_FAILURE = 'FETCH_ALBUMS_FAILURE';
+
+export const FETCH_ALL_ALBUMS_REQUEST = 'FETCH_ALL_ALBUMS_REQUEST';
+export const FETCH_ALL_ALBUMS_SUCCESS = 'FETCH_ALL_ALBUMS_SUCCESS';
+export const FETCH_ALL_ALBUMS_FAILURE = 'FETCH_ALL_ALBUMS_FAILURE';
 
 export const GET_ALBUM_REQUEST = 'GET_ALBUM_REQUEST';
 export const GET_ALBUM_SUCCESS = 'GET_ALBUM_SUCCESS';
@@ -18,6 +21,10 @@ const fetchAlbumsRequest = () => ({type: FETCH_ALBUMS_REQUEST});
 const fetchAlbumsSuccess = albums => ({type: FETCH_ALBUMS_SUCCESS, payload: albums});
 const fetchAlbumsFailure = error => ({type: FETCH_ALBUMS_FAILURE, payload: error});
 
+const fetchAllAlbumsRequest = () => ({type: FETCH_ALL_ALBUMS_REQUEST});
+const fetchAllAlbumsSuccess = allAlbums => ({type: FETCH_ALL_ALBUMS_SUCCESS, payload: allAlbums});
+const fetchAllAlbumsFailure = error => ({type: FETCH_ALL_ALBUMS_FAILURE, payload: error});
+
 const getAlbumRequest = () => ({type: GET_ALBUM_REQUEST});
 const getAlbumSuccess = album => ({type: GET_ALBUM_SUCCESS, payload: album});
 const getAlbumFailure = error => ({type: GET_ALBUM_FAILURE, payload: error});
@@ -25,6 +32,19 @@ const getAlbumFailure = error => ({type: GET_ALBUM_FAILURE, payload: error});
 const createAlbumRequest = () => ({type: CREATE_ALBUM_REQUEST});
 const createAlbumSuccess = () => ({type: CREATE_ALBUM_SUCCESS});
 const createAlbumFailure = error => ({type: CREATE_ALBUM_FAILURE, payload: error});
+
+export const getAlbums = () => {
+    return async dispatch => {
+        try {
+            dispatch(fetchAllAlbumsRequest());
+
+            const response = await axiosApi(`/albums`);
+            dispatch(fetchAllAlbumsSuccess(response.data));
+        } catch (e) {
+            dispatch(fetchAllAlbumsFailure(e.message));
+        }
+    }
+};
 
 export const getAlbumsAction = (id) => {
     return async dispatch => {
