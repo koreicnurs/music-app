@@ -63,6 +63,7 @@ const ArtistForm = ({onSubmit, error}) => {
           value={state.name}
           name="name"
           error={getFieldError('name')}
+          helperText={error}
         />
 
         <FormElement

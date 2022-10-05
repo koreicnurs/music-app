@@ -84,7 +84,7 @@ const Register = () => {
                     spacing={2}
                 >
                     <FormElement
-                        // required={true}
+                        required={true}
                         label="Username"
                         name="username"
                         value={user.username}
@@ -94,7 +94,7 @@ const Register = () => {
 
                     <FormElement
                         type="password"
-                        // required={true}
+                        required={true}
                         label="Password"
                         name="password"
                         value={user.password}
@@ -104,7 +104,7 @@ const Register = () => {
 
                     <FormElement
                         type="displayName"
-                        // required={true}
+                        required={true}
                         label="Display Name"
                         name="displayName"
                         value={user.displayName}
@@ -114,7 +114,7 @@ const Register = () => {
 
                     <FormElement
                         type="phone"
-                        // required={true}
+                        required={true}
                         label="Phone"
                         name="phone"
                         value={user.phone}

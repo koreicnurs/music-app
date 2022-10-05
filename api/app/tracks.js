@@ -4,7 +4,6 @@ const router = express.Router();
 const Track = require("../models/Track");
 const auth = require("../middleware/auth");
 
-
 router.get('/', auth, async (req, res) => {
     try {
         if (req.query.album) {

@@ -3,6 +3,7 @@ const express = require('express');
 const Albums = require("../models/Album");
 const path = require("path");
 const multer = require('multer');
+const config = require('../config');
 
 const router = express.Router();
 const {nanoid} = require('nanoid');
