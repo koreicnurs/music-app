@@ -8,7 +8,9 @@ const config = require('../config');
 const router = express.Router();
 const {nanoid} = require('nanoid');
 const auth = require("../middleware/auth");
-const Albums = require("../models/Album");
+const Artist = require("../models/Artist");
+const Album = require("../models/Album");
+const Track = require("../models/Track");
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -64,8 +66,41 @@ router.delete('/:id', auth, async (req, res) => {
     } catch (e) {
         res.sendStatus(500);
     }
+});
 
+router.put('/:id/publish', auth, async (req, res) => {
 
+    try {
+        const artist = await Artist.findById(req.params.id);
+
+        if (!artist) {
+            return res.status(404).send({message: 'Artist not found!'});
+        }
+        const publish = await Artist
+            .findByIdAndUpdate(req.params.id, {public: true})
+
+        res.send(publish);
+    } catch (e) {
+        res.sendStatus(500);
+    }
+});
+
+router.put('/:id/publish', auth, async (req, res) => {
+
+    try {
+        const album = await Album.findById(req.params.id);
+
+        if (!album) {
+            return res.status(404).send({message: 'Album not found!'});
+        }
+        const publish = await Album
+            .findByIdAndUpdate(req.params.id, {public: true})
+
+        res.send(publish);
+
+    } catch (e) {
+        res.sendStatus(500);
+    }
 });
 
 module.exports = router;

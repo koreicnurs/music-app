@@ -7,8 +7,9 @@ import {
     DELETE_TRACK_SUCCESS,
     FETCH_TRACKS_FAILURE,
     FETCH_TRACKS_REQUEST,
-    FETCH_TRACKS_SUCCESS
+    FETCH_TRACKS_SUCCESS, PUBLISH_TRACK_FAILURE, PUBLISH_TRACK_REQUEST, PUBLISH_TRACK_SUCCESS
 } from "../actions/tracksActions";
+import {PUBLISH_ARTIST_FAILURE, PUBLISH_ARTIST_REQUEST, PUBLISH_ARTIST_SUCCESS} from "../actions/artistsActions";
 
 
 const initialState = {
@@ -41,6 +42,13 @@ const tracksReducer = (state = initialState, actions) => {
         case DELETE_TRACK_SUCCESS:
             return {...state, loading: false};
         case DELETE_TRACK_FAILURE:
+            return {...state, error: actions.payload, loading: false};
+
+        case PUBLISH_TRACK_REQUEST:
+            return {...state, loading: true};
+        case PUBLISH_TRACK_SUCCESS:
+            return {...state, loading: false};
+        case PUBLISH_TRACK_FAILURE:
             return {...state, error: actions.payload, loading: false};
 
         default:

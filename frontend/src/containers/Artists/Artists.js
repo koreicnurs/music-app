@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import Spinner from "../../components/UI/Spinner/Spinner";
-import {deleteArtist, getArtists} from "../../store/actions/artistsActions";
+import {deleteArtist, getArtists, publishArtist} from "../../store/actions/artistsActions";
 import {getAlbumsAction} from "../../store/actions/albumsActions";
 import {Link, Redirect} from "react-router-dom";
 import {Box, Button, Card, CardContent, CardMedia, Typography} from "@mui/material";
@@ -29,27 +29,38 @@ const Artists = () => {
         <>
             <div className='artists'>
                 {artists.map(i => (
-
                     <Card sx={{display: 'flex'}} className='artist' key={i._id}>
-                        <Box sx={{display: 'flex', flexDirection: 'column'}}>
-                            <CardContent sx={{flex: '1 0 auto'}}>
-                                <Typography component="div" variant="h5">
-                                    {i.name}
-                                </Typography>
-                                <Typography variant="subtitle1" color="text.secondary" component="div">
-                                    {i.description}
-                                </Typography>
-                            </CardContent>
-                        </Box>
-                        <CardMedia
-                            component="img"
-                            sx={{width: 151}}
-                            image={i.image}
-                            alt={i.name}
-                        />
-                        <Button component={Link} to={`/albums?artist=${i._id}`}
-                                onClick={() => getAlbums(i._id)}>See Albums</Button>
-                        <Button onClick={() => dispatch(deleteArtist(i._id))}>Delete</Button>
+                        {i.public === false && user.role !== 'admin' ? null :
+                            <>
+                                <Box sx={{display: 'flex', flexDirection: 'column'}}>
+                                    <CardContent sx={{flex: '1 0 auto'}}>
+                                        <Typography component="div" variant="h5">
+                                            {i.name}
+                                        </Typography>
+                                        <Typography variant="subtitle1" color="text.secondary" component="div">
+                                            {i.description}
+                                        </Typography>
+                                        <Typography variant="h6" component="div">
+                                            {i.public === false ? 'Not Publish' : 'Publish'}
+                                        </Typography>
+                                        {user?.role === 'admin' &&
+                                            <Button onClick={() => dispatch(publishArtist(i._id))}>Make Public</Button>
+                                        }
+                                    </CardContent>
+                                </Box>
+                                <CardMedia
+                                    component="img"
+                                    sx={{width: 151}}
+                                    image={i.image}
+                                    alt={i.name}
+                                />
+                                <Button component={Link} to={`/albums?artist=${i._id}`}
+                                        onClick={() => getAlbums(i._id)}>See Albums</Button>
+                                {user?.role === 'admin' &&
+                                    <Button onClick={() => dispatch(deleteArtist(i._id))}>Delete</Button>
+                                }
+                            </>
+                        }
                     </Card>
 
                 ))}

@@ -58,4 +58,22 @@ router.delete('/:id', auth, async (req, res) => {
     }
 });
 
+router.put('/:id/publish', auth, async (req, res) => {
+
+    try {
+        const artist = await Track.findById(req.params.id);
+
+        if (!artist) {
+            return res.status(404).send({message: 'Track not found!'});
+        }
+        const publish = await Track
+            .findByIdAndUpdate(req.params.id, {public: true})
+
+        res.send(publish);
+
+    } catch (e) {
+        res.sendStatus(500);
+    }
+});
+
 module.exports = router;
