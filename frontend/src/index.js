@@ -1,20 +1,20 @@
 import React from 'react';
+import {Router} from "react-router-dom";
 import ReactDOM from 'react-dom/client';
-import {BrowserRouter} from "react-router-dom";
 import {Provider} from "react-redux";
-import App from './App';
-import './index.css';
 import {ThemeProvider} from "@mui/material";
-import theme from "./theme";
 import store from "./store/configureStore";
-
+import App from './App';
+import history from "./history";
+import theme from "./theme";
+import './index.css';
 
 const app = (
     <Provider store={store}>
         <ThemeProvider theme={theme}>
-            <BrowserRouter>
+            <Router history={history}>
                 <App/>
-            </BrowserRouter>
+            </Router>
         </ThemeProvider>
     </Provider>
 );
