@@ -14,14 +14,7 @@ const TrackForm = ({onSubmit, album, error}) => {
 
     const submitFormHandler = e => {
         e.preventDefault();
-        const formData = new FormData();
-
-        Object.keys(state).forEach(key => {
-            formData.append(key, state[key]);
-        });
-
-        onSubmit(formData);
-        console.log(state);
+        onSubmit({...state});
     };
 
     const inputChangeHandler = e => {

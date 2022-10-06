@@ -5,6 +5,7 @@ const Track = require("../models/Track");
 const auth = require("../middleware/auth");
 const Artists = require("../models/Artist");
 const Albums = require("../models/Album");
+const permit = require("../middleware/permit");
 
 router.get('/', auth, async (req, res) => {
     try {
@@ -48,7 +49,7 @@ router.post('/', async (req, res) => {
     res.send(track);
 });
 
-router.delete('/:id', auth, async (req, res) => {
+router.delete('/:id', permit, async (req, res) => {
 
     try {
         await Track.deleteOne({_id: req.params.id});
@@ -58,7 +59,7 @@ router.delete('/:id', auth, async (req, res) => {
     }
 });
 
-router.put('/:id/publish', auth, async (req, res) => {
+router.put('/:id/publish', permit, async (req, res) => {
 
     try {
         const artist = await Track.findById(req.params.id);

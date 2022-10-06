@@ -11,6 +11,7 @@ const auth = require("../middleware/auth");
 const Artist = require("../models/Artist");
 const Album = require("../models/Album");
 const Track = require("../models/Track");
+const permit = require("../middleware/permit");
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -68,7 +69,7 @@ router.delete('/:id', auth, async (req, res) => {
     }
 });
 
-router.put('/:id/publish', auth, async (req, res) => {
+router.put('/:id/publish', permit, async (req, res) => {
 
     try {
         const artist = await Artist.findById(req.params.id);
@@ -85,7 +86,7 @@ router.put('/:id/publish', auth, async (req, res) => {
     }
 });
 
-router.put('/:id/publish', auth, async (req, res) => {
+router.put('/:id/publish', permit, async (req, res) => {
 
     try {
         const album = await Album.findById(req.params.id);

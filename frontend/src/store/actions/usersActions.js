@@ -30,7 +30,7 @@ export const registerUser = userData => {
 
       const response =  await axiosApi.post('/users', userData);
 
-      dispatch(registerUserSuccess(response.data));
+      await dispatch(registerUserSuccess(response.data));
       dispatch(historyPush('/'));
     } catch (e) {
       if (e.response && e.response.data) {
@@ -49,7 +49,7 @@ export const loginUser = userData => {
 
       const response = await axiosApi.post('/users/sessions', userData);
 
-      dispatch(loginUserSuccess(response.data.user));
+      await dispatch(loginUserSuccess(response.data.user));
       dispatch(historyPush('/'));
     } catch (e) {
       if (e.response && e.response.data) {

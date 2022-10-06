@@ -4,6 +4,7 @@ import Spinner from "../../components/UI/Spinner/Spinner";
 import {Link, useHistory} from "react-router-dom";
 import {getTracksAction} from "../../store/actions/tracksActions";
 import {Button, Card, CardActionArea, CardActions, CardContent, CardMedia, Typography} from "@mui/material";
+import {apiUrl} from "../../config";
 import './Album.css';
 
 const Album = () => {
@@ -23,7 +24,7 @@ const Album = () => {
                     <CardMedia
                         component="img"
                         height="140"
-                        image={album.image}
+                        image={apiUrl + '/' + album.image}
                         alt={album.title}
                     />
                     <CardContent>

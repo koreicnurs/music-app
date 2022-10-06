@@ -1,6 +1,6 @@
 import axiosApi from "../../axiosApi";
 import {historyPush} from "./historyActions";
-import {getArtists, PUBLISH_ARTIST_FAILURE, PUBLISH_ARTIST_REQUEST, PUBLISH_ARTIST_SUCCESS} from "./artistsActions";
+import {getArtists} from "./artistsActions";
 
 export const FETCH_ALBUMS_REQUEST = 'FETCH_ALBUMS_REQUEST';
 export const FETCH_ALBUMS_SUCCESS = 'FETCH_ALBUMS_SUCCESS';

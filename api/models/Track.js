@@ -9,7 +9,7 @@ const TrackSchema = new Schema({
         required: true,
     },
     number: {
-        type: String,
+        type: Number,
         required: true,
     },
     title: {

@@ -5,6 +5,7 @@ import {deleteAlbum, getAlbumAction, publishAlbum} from "../../store/actions/alb
 import {Box, Button, Card, CardContent, CardMedia, Typography} from "@mui/material";
 import {Link, useHistory} from "react-router-dom";
 import './Albums.css';
+import {apiUrl} from "../../config";
 
 const Albums = () => {
     const dispatch = useDispatch();
@@ -47,7 +48,7 @@ const Albums = () => {
                                 <CardMedia
                                     component="img"
                                     sx={{width: 151}}
-                                    image={i.image}
+                                    image={apiUrl + '/' + i.image}
                                     alt={i.title}
                                 />
                                 <Button component={Link} to={`/albums/${i._id}`}

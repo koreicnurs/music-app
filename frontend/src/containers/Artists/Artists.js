@@ -5,6 +5,7 @@ import {deleteArtist, getArtists, publishArtist} from "../../store/actions/artis
 import {getAlbumsAction} from "../../store/actions/albumsActions";
 import {Link, Redirect} from "react-router-dom";
 import {Box, Button, Card, CardContent, CardMedia, Typography} from "@mui/material";
+import {apiUrl} from "../../config";
 import "./Artists.css";
 
 const Artists = () => {
@@ -51,7 +52,7 @@ const Artists = () => {
                                 <CardMedia
                                     component="img"
                                     sx={{width: 151}}
-                                    image={i.image}
+                                    image={apiUrl + '/' + i.image}
                                     alt={i.name}
                                 />
                                 <Button component={Link} to={`/albums?artist=${i._id}`}

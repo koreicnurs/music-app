@@ -22,9 +22,9 @@ const App = () => {
                 <Route path="/tracks" exact component={Tracks}/>
                 <Route path="/tracks/new" exact component={NewTrack}/>
                 <Route path="/albums/:id" exact component={Album}/>
-                <Route path="/register" component={Register}/>
-                <Route path="/login" component={Login}/>
-                <Route path="/track-history" component={TrackHistory}/>
+                <Route path="/register" exact component={Register}/>
+                <Route path="/login" exact component={Login}/>
+                <Route path="/track-history" exact component={TrackHistory}/>
                 <Route render={() => <h1>Not Found</h1>}/>
             </Switch>
         </Layout>
