@@ -29,8 +29,9 @@ router.get('/', auth, async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
+
     const {title, duration, number, album} = req.body;
-    console.log(req.body);
+
     if (!title || !duration || !number || !album) {
         return res.status(400).send({error: 'Something are missing'});
     }
