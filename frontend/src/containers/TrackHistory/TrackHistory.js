@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import Spinner from "../../components/UI/Spinner/Spinner";
-import {Box, Button, Card, CardContent, CardMedia, Typography} from "@mui/material";
+import {Box, Card, CardContent, Typography} from "@mui/material";
 import {getTracksHistory} from "../../store/actions/trackHistoryActions";
 
 const TrackHistory = () => {
