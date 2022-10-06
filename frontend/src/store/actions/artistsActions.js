@@ -10,6 +10,10 @@ export const CREATE_ARTIST_REQUEST = 'CREATE_ARTIST_REQUEST';
 export const CREATE_ARTIST_SUCCESS = 'CREATE_ARTIST_SUCCESS';
 export const CREATE_ARTIST_FAILURE = 'CREATE_ARTIST_FAILURE';
 
+export const DELETE_ARTIST_REQUEST = 'DELETE_ARTIST_REQUEST';
+export const DELETE_ARTIST_SUCCESS = 'DELETE_ARTIST_SUCCESS';
+export const DELETE_ARTIST_FAILURE = 'DELETE_ARTIST_FAILURE';
+
 const fetchArtistsRequest = () => ({type: FETCH_ARTISTS_REQUEST});
 const fetchArtistsSuccess = artists => ({type: FETCH_ARTISTS_SUCCESS, payload: artists});
 const fetchArtistsFailure = error => ({type: FETCH_ARTISTS_FAILURE, payload: error});
@@ -17,6 +21,10 @@ const fetchArtistsFailure = error => ({type: FETCH_ARTISTS_FAILURE, payload: err
 const createArtistRequest = () => ({type: CREATE_ARTIST_REQUEST});
 const createArtistSuccess = () => ({type: CREATE_ARTIST_SUCCESS});
 const createArtistFailure = error => ({type: CREATE_ARTIST_FAILURE, payload: error});
+
+const deleteArtistRequest = () => ({type: DELETE_ARTIST_REQUEST});
+const deleteArtistSuccess = () => ({type: DELETE_ARTIST_SUCCESS});
+const deleteArtistFailure = error => ({type: DELETE_ARTIST_FAILURE, payload: error});
 
 export const getArtists = () => {
     return async (dispatch, getState) => {
@@ -59,6 +67,25 @@ export const createArtist = (artistData) => {
                 dispatch(createArtistFailure(e.response.data));
             } else {
                 dispatch(createArtistFailure({global: 'No internet'}));
+            }
+
+            throw e;
+        }
+    }
+};
+
+export const deleteArtist = (id) => {
+    return async dispatch => {
+        try {
+            dispatch(deleteArtistRequest());
+            await axiosApi.delete('/artists/' + id);
+            dispatch(deleteArtistSuccess());
+            dispatch(getArtists());
+        } catch (e) {
+            if (e.response && e.response.data) {
+                dispatch(deleteArtistFailure(e.response.data));
+            } else {
+                dispatch(deleteArtistFailure({global: 'No internet'}));
             }
 
             throw e;

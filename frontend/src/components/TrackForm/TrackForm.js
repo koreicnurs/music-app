@@ -7,9 +7,9 @@ const TrackForm = ({onSubmit, album, error}) => {
 
     const [state, setState] = useState({
         album: "",
-        title: "",
-        duration: "",
         number: "",
+        title: "",
+        duration: ""
     });
 
     const submitFormHandler = e => {
@@ -21,6 +21,7 @@ const TrackForm = ({onSubmit, album, error}) => {
         });
 
         onSubmit(formData);
+        console.log(state);
     };
 
     const inputChangeHandler = e => {
@@ -52,7 +53,6 @@ const TrackForm = ({onSubmit, album, error}) => {
                 direction="column"
                 rowSpacing={2}
             >
-
                 <FormSelectTrack
                     label="Album"
                     onChange={inputChangeHandler}

@@ -2,6 +2,9 @@ import {
     CREATE_TRACK_FAILURE,
     CREATE_TRACK_REQUEST,
     CREATE_TRACK_SUCCESS,
+    DELETE_TRACK_FAILURE,
+    DELETE_TRACK_REQUEST,
+    DELETE_TRACK_SUCCESS,
     FETCH_TRACKS_FAILURE,
     FETCH_TRACKS_REQUEST,
     FETCH_TRACKS_SUCCESS
@@ -32,6 +35,13 @@ const tracksReducer = (state = initialState, actions) => {
             return {...state, createTrackLoading: false};
         case CREATE_TRACK_FAILURE:
             return {...state, createTrackError: actions.payload, createTrackLoading: false};
+
+        case DELETE_TRACK_REQUEST:
+            return {...state, loading: true};
+        case DELETE_TRACK_SUCCESS:
+            return {...state, loading: false};
+        case DELETE_TRACK_FAILURE:
+            return {...state, error: actions.payload, loading: false};
 
         default:
             return state;

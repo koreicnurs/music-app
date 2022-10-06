@@ -3,6 +3,8 @@ const router = express.Router();
 
 const Track = require("../models/Track");
 const auth = require("../middleware/auth");
+const Artists = require("../models/Artist");
+const Albums = require("../models/Album");
 
 router.get('/', auth, async (req, res) => {
     try {
@@ -26,26 +28,33 @@ router.get('/', auth, async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-    const {title, album, duration, number} = req.body;
-
-    if (!title || !album || !duration || !number) {
-        return res.status(400).send({error: 'Data not valid'});
+    const {title, duration, number, album} = req.body;
+    console.log(req.body);
+    if (!title || !duration || !number || !album) {
+        return res.status(400).send({error: 'Something are missing'});
     }
 
-    const trackData = {
-        title,
+    const track = {
         album,
-        duration,
         number,
+        title,
+        duration,
+        public: false
     };
 
-    try {
-        const track = new Track(trackData);
-        await track.save();
+    const newTrack = new Track(track);
+    await newTrack.save();
 
-        res.send(track);
+    res.send(track);
+});
+
+router.delete('/:id', auth, async (req, res) => {
+
+    try {
+        await Track.deleteOne({_id: req.params.id});
+        res.send({message: 'track deleted'});
     } catch (e) {
-        res.status(400).send({error: e.errors});
+        res.sendStatus(500);
     }
 });
 

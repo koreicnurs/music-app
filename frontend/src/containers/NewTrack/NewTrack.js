@@ -1,17 +1,18 @@
 import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {Typography} from "@mui/material";
-import TrackForm from "../../components/TrackForm/TrackForm";
 import {createTrack} from "../../store/actions/tracksActions";
 import {getAlbums} from "../../store/actions/albumsActions";
+import TrackForm from "../../components/TrackForm/TrackForm";
 
 const NewTrack = ({history}) => {
+
     const dispatch = useDispatch();
     const error = useSelector(state => state.tracksCombine.createTrackError);
     const albums = useSelector(state => state.albumsCombine.allAlbums);
 
     useEffect(() => {
-            dispatch(getAlbums());
+        dispatch(getAlbums());
     }, [dispatch]);
 
     const onProductFormSubmit = async tracksData => {
@@ -38,3 +39,4 @@ const NewTrack = ({history}) => {
 };
 
 export default NewTrack;
+

@@ -3,21 +3,21 @@ const idValidator = require('mongoose-id-validator');
 const Schema = mongoose.Schema;
 
 const TrackSchema = new Schema({
-    title: {
-        type: String,
-        required: true,
-    },
     album: {
         type: Schema.Types.ObjectId,
         ref: 'Album',
         required: true,
     },
-    duration: {
+    number: {
         type: String,
         required: true,
     },
-    number: {
-        type: Number,
+    title: {
+        type: String,
+        required: true,
+    },
+    duration: {
+        type: String,
         required: true,
     },
     public: false

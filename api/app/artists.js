@@ -8,6 +8,7 @@ const config = require('../config');
 const router = express.Router();
 const {nanoid} = require('nanoid');
 const auth = require("../middleware/auth");
+const Albums = require("../models/Album");
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -40,6 +41,7 @@ router.post('/', upload.single('image'), async (req, res) => {
         name,
         description,
         image,
+        public: false
     };
 
     if (req.file) {
@@ -52,6 +54,18 @@ router.post('/', upload.single('image'), async (req, res) => {
     await newArtist.save();
 
     res.send(artist);
+});
+
+router.delete('/:id', auth, async (req, res) => {
+
+    try {
+        await Artists.deleteOne({_id: req.params.id});
+        res.send({message: 'artist deleted'});
+    } catch (e) {
+        res.sendStatus(500);
+    }
+
+
 });
 
 module.exports = router;

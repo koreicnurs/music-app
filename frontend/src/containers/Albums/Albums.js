@@ -1,7 +1,7 @@
 import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import Spinner from "../../components/UI/Spinner/Spinner";
-import {getAlbumAction} from "../../store/actions/albumsActions";
+import {deleteAlbum, getAlbumAction} from "../../store/actions/albumsActions";
 import {Box, Button, Card, CardContent, CardMedia, Typography} from "@mui/material";
 import {Link, useHistory} from "react-router-dom";
 import './Albums.css';
@@ -24,7 +24,7 @@ const Albums = () => {
             <div className='albums'>
                 {albums.map(i => (
 
-                        <Card sx={{display: 'flex'}} className='album'>
+                        <Card sx={{display: 'flex'}} className='album' key={i._id}>
 
                             <Box sx={{display: 'flex', flexDirection: 'column'}}>
                                 <CardContent sx={{flex: '1 0 auto'}}>
@@ -44,7 +44,7 @@ const Albums = () => {
                             />
                             <Button component={Link} to={`/albums/${i._id}`}
                                     onClick={() => getAlbum(i._id)}>info</Button>
-
+                            <Button onClick={() => dispatch(deleteAlbum(i._id))}>Delete</Button>
                         </Card>
                 ))}
             </div>

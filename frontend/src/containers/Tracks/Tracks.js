@@ -4,6 +4,7 @@ import Spinner from "../../components/UI/Spinner/Spinner";
 import {Box, Button, Card, CardContent, Typography} from "@mui/material";
 import {useHistory} from "react-router-dom";
 import {saveTrack} from "../../store/actions/trackHistoryActions";
+import {deleteTrack} from "../../store/actions/tracksActions";
 import './Tracks.css';
 
 const Tracks = () => {
@@ -23,7 +24,7 @@ const Tracks = () => {
             </Typography>
             <div className='tracks'>
                 {tracks.map(i => (
-                    <Card sx={{display: 'flex'}} className='track' onClick={() => sendTrack(i._id)}>
+                    <Card sx={{display: 'flex'}} className='track' key={i._id} onClick={() => sendTrack(i._id)}>
                         <Box sx={{display: 'flex', flexDirection: 'column'}}>
                             <CardContent sx={{flex: '1 0 auto'}}>
                                 <Typography component="div" variant="h6">
@@ -37,6 +38,7 @@ const Tracks = () => {
                                 </Typography>
                             </CardContent>
                         </Box>
+                        <Button onClick={() => dispatch(deleteTrack(i._id))}>Delete</Button>
                     </Card>
                 ))}
             </div>

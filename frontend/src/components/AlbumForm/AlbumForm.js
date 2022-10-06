@@ -5,11 +5,12 @@ import FormElement from "../UI/Form/FormElement/FormElement";
 import FormSelect from "../UI/Form/FormSelect/FormSelect";
 
 const AlbumForm = ({onSubmit, artist, error}) => {
+
     const [state, setState] = useState({
         artist: "",
         title: "",
         date: "",
-        image: "",
+        image: ""
     });
 
     const submitFormHandler = e => {

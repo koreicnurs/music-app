@@ -7,6 +7,8 @@ const config = require('../config');
 
 const router = express.Router();
 const {nanoid} = require('nanoid');
+const User = require("../models/User");
+const auth = require("../middleware/auth");
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -53,7 +55,7 @@ router.get('/:id', async (req, res) => {
 });
 
 router.post('/', upload.single('image'), async (req, res) => {
-    const {title, artist, date, image} = req.body;
+    const {title, artist, date} = req.body;
 
     if (!title || !date || !artist) {
         return res.status(400).send({error: 'Data not valid'});
@@ -64,6 +66,7 @@ router.post('/', upload.single('image'), async (req, res) => {
         artist,
         date,
         image: null,
+        public: false
     };
 
     if (req.file) {
@@ -78,6 +81,18 @@ router.post('/', upload.single('image'), async (req, res) => {
     } catch (e) {
         res.status(400).send({error: e.errors});
     }
+});
+
+router.delete('/:id', auth, async (req, res) => {
+
+    try {
+        await Albums.deleteOne({_id: req.params.id});
+        res.send({message: 'album deleted'});
+    } catch (e) {
+        res.sendStatus(500);
+    }
+
+
 });
 
 module.exports = router;
