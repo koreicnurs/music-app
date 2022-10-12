@@ -1,5 +1,7 @@
 import React from 'react';
-import FacebookLoginButton from 'react-facebook-login';
+import FacebookLoginButton from 'react-facebook-login/dist/facebook-login-render-props';
+import FacebookIcon from '@mui/icons-material/Facebook';
+import {Button} from "@mui/material";
 import {facebookId} from "../../config";
 
 
@@ -14,9 +16,18 @@ const FacebookLogin = () => {
             appId={facebookId}
             fields="name, email, picture"
             callback={facebookResponse}
-        >
-            Enter with Facebook
-        </FacebookLoginButton>
+            render={props => (
+                <Button
+                    fullWidth
+                    color='primary'
+                    variant='outlined'
+                    startIcon={<FacebookIcon/>}
+                    onClick={props.onClick}
+                >
+                    Enter with Facebook
+                </Button>
+            )}
+        />
     );
 };
 
