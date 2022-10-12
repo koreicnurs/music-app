@@ -6,8 +6,8 @@ const User = require("../models/User");
 router.post('/', async (req, res) => {
 
     try {
-        const {username, password, displayName, phone} = req.body;
-        const userData = {username, password, displayName, phone};
+        const {email, password, displayName, phone} = req.body;
+        const userData = {email, password, displayName, phone};
         const user = new User(userData);
 
         user.generateToken();
@@ -20,7 +20,7 @@ router.post('/', async (req, res) => {
 });
 
 router.post('/sessions', async (req, res) => {
-    const user = await User.findOne({username: req.body.username});
+    const user = await User.findOne({email: req.body.email});
 
     if (!user) {
         res.status(401).send({message: 'Credentials are wrong!'});

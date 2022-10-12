@@ -6,12 +6,12 @@ const Schema = mongoose.Schema;
 const SALT_WORK_FACTOR = 10;
 
 const UserSchema = new Schema({
-    username: {
+    email: {
         type: String,
         required: true,
         validate: {
             validator: async value => {
-                const user = await User.findOne({username: value});
+                const user = await User.findOne({email: value});
 
                 if (user) return false;
             },
@@ -31,7 +31,12 @@ const UserSchema = new Schema({
         required: true,
         default: 'user',
         enum: ['user', 'admin'],
-    }
+    },
+    displayName: {
+        type: String,
+        required: true
+    },
+    facebookId: String,
 });
 
 UserSchema.pre('save', async function (next) {
