@@ -10,8 +10,8 @@ const {nanoid} = require("nanoid");
 router.post('/', async (req, res) => {
 
     try {
-        const {email, password, displayName, phone} = req.body;
-        const userData = {email, password, displayName, phone};
+        const {email, password, displayName, phone, avatar} = req.body;
+        const userData = {email, password, displayName, phone, avatar};
         const user = new User(userData);
 
         user.generateToken();
@@ -50,22 +50,23 @@ router.post('/facebookLogin', async (req, res) => {
     try {
         const response = await axios.get(debugTokenUrl);
 
-        if(response.data.data.error) {
+        if (response.data.data.error) {
             return res.status(401).send({message: 'Facebook token incorrect!'});
         }
 
-        if(req.body.id !== response.data.data.user_id) {
+        if (req.body.id !== response.data.data.user_id) {
             return res.status(401).send({message: 'Wrong User ID'});
         }
 
         let user = await User.findOne({facebookId: req.body.id});
 
-        if(!user) {
+        if (!user) {
             user = new User({
-               email: req.body.email,
-               password: nanoid(),
-               facebookId: req.body.id,
-               displayName: req.body.name,
+                email: req.body.email,
+                password: nanoid(),
+                facebookId: req.body.id,
+                displayName: req.body.name,
+                avatar: req.body.picture.data.url
             });
         }
 

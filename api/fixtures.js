@@ -22,14 +22,16 @@ const run = async () => {
         token: nanoid(),
         displayName: 'first name',
         phone: '+996 123123',
-        role: 'user'
+        role: 'user',
+        avatar: 'https://i1.sndcdn.com/avatars-QWi7CDmqCyFFuqVp-FFF4uQ-t500x500.jpg'
     }, {
         email: 'second@gmail.com',
         password: '123',
         token: nanoid(),
         displayName: 'second name',
         phone: '+996 234234',
-        role: 'admin'
+        role: 'admin',
+        avatar: 'https://i.ytimg.com/vi/BzrMOr36mHI/maxresdefault.jpg'
     },);
 
     const [eminem, imagineDragons] = await Artist.create({
